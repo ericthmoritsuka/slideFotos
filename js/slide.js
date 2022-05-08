@@ -1,4 +1,4 @@
-import debounce from './debounce.js'
+import debounce from "./debounce.js";
 
 export default class Slide {
   constructor(slide, wrapper) {
@@ -9,6 +9,7 @@ export default class Slide {
       startX: 0,
       movement: 0,
     };
+    this.activeClass = "ativo";
   }
 
   transition(active) {
@@ -124,10 +125,10 @@ export default class Slide {
   }
 
   onResize() {
-    setTimeout(() =>{
+    setTimeout(() => {
       this.slidesConfig();
       this.changeSlide(this.index.active);
-    }, 500)
+    }, 500);
   }
 
   addResizeEvent() {
@@ -139,6 +140,8 @@ export default class Slide {
     this.onMove = this.onMove.bind(this);
     this.onEnd = this.onEnd.bind(this);
     this.onResize = debounce(this.onResize.bind(this), 200);
+    this.activatePreviousSlide = this.activatePreviousSlide.bind(this);
+    this.activateNextSlide = this.activateNextSlide.bind(this);
   }
 
   init() {
@@ -147,6 +150,20 @@ export default class Slide {
     this.addSlideEvents();
     this.slidesConfig();
     this.addResizeEvent();
+    this.changeSlide(0);
     return this;
+  }
+}
+
+export class SlideNav extends Slide {
+  addArrow(previous, next) {
+    this.previousElement = document.querySelector(previous);
+    this.nextElement = document.querySelector(next);
+    this.addArrowEvent();
+  }
+
+  addArrowEvent() {
+    this.previousElement.addEventListener("click", this.activatePreviousSlide);
+    this.nextElement.addEventListener("click", this.activateNextSlide);
   }
 }
