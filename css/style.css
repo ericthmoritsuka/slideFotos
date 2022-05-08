@@ -13,13 +13,16 @@ img {
   max-width: 100%;
 }
 
-.slide-wrapper{
+.slide-wrapper {
   overflow: hidden;
 }
 
 .slide {
   display: flex;
+}
 
+.slide:hover {
+  will-change: transform;
 }
 
 .slide li {
@@ -27,4 +30,15 @@ img {
   width: 80vw;
   max-width: 800px;
   margin: 0 20px;
+  opacity: 0.6;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  transform: scale(0.8);
+  transition: 0.4s;
+}
+
+.slide li.ativo {
+  opacity: 1;
+  transform: scale(1);
 }
